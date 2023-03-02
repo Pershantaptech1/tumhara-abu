@@ -1,0 +1,3075 @@
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ([
+/* 0 */,
+/* 1 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _toConsumableArray)
+/* harmony export */ });
+/* harmony import */ var _arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var _nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
+
+
+
+
+function _toConsumableArray(arr) {
+  return (0,_arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__["default"])(arr) || (0,_iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__["default"])(arr) || (0,_unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(arr) || (0,_nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
+}
+
+/***/ }),
+/* 2 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _arrayWithoutHoles)
+/* harmony export */ });
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(arr);
+}
+
+/***/ }),
+/* 3 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _arrayLikeToArray)
+/* harmony export */ });
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+/***/ }),
+/* 4 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _iterableToArray)
+/* harmony export */ });
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+/***/ }),
+/* 5 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _unsupportedIterableToArray)
+/* harmony export */ });
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(o, minLen);
+}
+
+/***/ }),
+/* 6 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _nonIterableSpread)
+/* harmony export */ });
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+/***/ }),
+/* 7 */
+/***/ (() => {
+
+(function (funcName, baseObj) {
+  "use strict"; // The public function name defaults to window.docReady
+  // but you can modify the last line of this function to pass in a different object or method name
+  // if you want to put them in a different namespace and those will be used instead of
+  // window.docReady(...)
+
+  funcName = funcName || "docReady";
+  baseObj = baseObj || window;
+  var readyList = [];
+  var readyFired = false;
+  var readyEventHandlersInstalled = false; // call this when the document is ready
+  // this function protects itself against being called more than once
+
+  function ready() {
+    if (!readyFired) {
+      // this must be set to true before we start calling callbacks
+      readyFired = true;
+
+      for (var i = 0; i < readyList.length; i++) {
+        // if a callback here happens to add new ready handlers,
+        // the docReady() function will see that it already fired
+        // and will schedule the callback to run right after
+        // this event loop finishes so all handlers will still execute
+        // in order and no new ones will be added to the readyList
+        // while we are processing the list
+        readyList[i].fn.call(window, readyList[i].ctx);
+      } // allow any closures held by these functions to free
+
+
+      readyList = [];
+    }
+  }
+
+  function readyStateChange() {
+    if (document.readyState === "complete") {
+      ready();
+    }
+  } // This is the one public interface
+  // docReady(fn, context);
+  // the context argument is optional - if present, it will be passed
+  // as an argument to the callback
+
+
+  baseObj[funcName] = function (callback, context) {
+    if (typeof callback !== "function") {
+      throw new TypeError("callback for docReady(fn) must be a function");
+    } // if ready has already fired, then just schedule the callback
+    // to fire asynchronously, but right away
+
+
+    if (readyFired) {
+      setTimeout(function () {
+        callback(context);
+      }, 1);
+      return;
+    } else {
+      // add the function and context to the list
+      readyList.push({
+        fn: callback,
+        ctx: context
+      });
+    } // if document already ready to go, schedule the ready function to run
+    // IE only safe when readyState is "complete", others safe when readyState is "interactive"
+
+
+    if (document.readyState === "complete" || !document.attachEvent && document.readyState === "interactive") {
+      setTimeout(ready, 1);
+    } else if (!readyEventHandlersInstalled) {
+      // otherwise if we don't have event handlers installed, install them
+      if (document.addEventListener) {
+        // first choice is DOMContentLoaded event
+        document.addEventListener("DOMContentLoaded", ready, false); // backup is window load event
+
+        window.addEventListener("load", ready, false);
+      } else {
+        // must be IE
+        document.attachEvent("onreadystatechange", readyStateChange);
+        window.attachEvent("onload", ready);
+      }
+
+      readyEventHandlersInstalled = true;
+    }
+  };
+})("docReady", window); // modify this previous line to pass in your own method name
+// and object for the method to be attached to
+
+/***/ }),
+/* 8 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(15);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(17);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(14);
+/* harmony import */ var _AuTracker__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(19);
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__["default"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__["default"])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+var PartnerTracker = /*#__PURE__*/function (_AuTracker) {
+  (0,_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__["default"])(PartnerTracker, _AuTracker);
+
+  var _super = _createSuper(PartnerTracker);
+
+  function PartnerTracker(e) {
+    var _this;
+
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, PartnerTracker);
+
+    _this = _super.call(this, e);
+    _this.docReady = _this.docReady.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__["default"])(_this));
+    return _this;
+  }
+
+  (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(PartnerTracker, [{
+    key: "docReady",
+    value: function docReady() {
+      (0,_babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__["default"])((0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__["default"])(PartnerTracker.prototype), "docReady", this).call(this);
+    }
+  }, {
+    key: "getCustomTags",
+    value: function getCustomTags() {
+      var site = this.u.hostname.replace(/www./gi, '');
+
+      if (site.includes('googlesyndication')) {
+        return [];
+      }
+
+      return [site];
+    }
+  }]);
+
+  return PartnerTracker;
+}(_AuTracker__WEBPACK_IMPORTED_MODULE_7__["default"]);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PartnerTracker);
+
+/***/ }),
+/* 9 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _classCallCheck)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+/***/ }),
+/* 10 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _createClass)
+/* harmony export */ });
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  Object.defineProperty(Constructor, "prototype", {
+    writable: false
+  });
+  return Constructor;
+}
+
+/***/ }),
+/* 11 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _assertThisInitialized)
+/* harmony export */ });
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+/***/ }),
+/* 12 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _get)
+/* harmony export */ });
+/* harmony import */ var _superPropBase_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+
+function _get() {
+  if (typeof Reflect !== "undefined" && Reflect.get) {
+    _get = Reflect.get.bind();
+  } else {
+    _get = function _get(target, property, receiver) {
+      var base = (0,_superPropBase_js__WEBPACK_IMPORTED_MODULE_0__["default"])(target, property);
+      if (!base) return;
+      var desc = Object.getOwnPropertyDescriptor(base, property);
+
+      if (desc.get) {
+        return desc.get.call(arguments.length < 3 ? target : receiver);
+      }
+
+      return desc.value;
+    };
+  }
+
+  return _get.apply(this, arguments);
+}
+
+/***/ }),
+/* 13 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _superPropBase)
+/* harmony export */ });
+/* harmony import */ var _getPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(14);
+
+function _superPropBase(object, property) {
+  while (!Object.prototype.hasOwnProperty.call(object, property)) {
+    object = (0,_getPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__["default"])(object);
+    if (object === null) break;
+  }
+
+  return object;
+}
+
+/***/ }),
+/* 14 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _getPrototypeOf)
+/* harmony export */ });
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+/***/ }),
+/* 15 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _inherits)
+/* harmony export */ });
+/* harmony import */ var _setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  Object.defineProperty(subClass, "prototype", {
+    writable: false
+  });
+  if (superClass) (0,_setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__["default"])(subClass, superClass);
+}
+
+/***/ }),
+/* 16 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _setPrototypeOf)
+/* harmony export */ });
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+  return _setPrototypeOf(o, p);
+}
+
+/***/ }),
+/* 17 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _possibleConstructorReturn)
+/* harmony export */ });
+/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(18);
+/* harmony import */ var _assertThisInitialized_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
+
+
+function _possibleConstructorReturn(self, call) {
+  if (call && ((0,_typeof_js__WEBPACK_IMPORTED_MODULE_0__["default"])(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+
+  return (0,_assertThisInitialized_js__WEBPACK_IMPORTED_MODULE_1__["default"])(self);
+}
+
+/***/ }),
+/* 18 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _typeof)
+/* harmony export */ });
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
+}
+
+/***/ }),
+/* 19 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(21);
+/* harmony import */ var _base64__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(22);
+/* harmony import */ var _md5__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(23);
+/* harmony import */ var _scrapers_shopify__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(24);
+/* harmony import */ var _scrapers_consentHandler__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(27);
+/* harmony import */ var _data_store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(28);
+/* harmony import */ var _time__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(29);
+
+
+
+
+
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+
+
+
+
+
+
+
+var W = window;
+var D = document;
+var META_PROPERTIES = {
+  'og:title': 'title',
+  'og:description': 'description',
+  'og:image': 'image',
+  'og:url': 'url',
+  'og:type': 'type',
+  'og:name': 'name',
+  'og:locale': 'locale'
+};
+var META_NAMES = {
+  'keywords': 'keywords'
+};
+var META_AUDIGENT_TAG = "meta[name='audigent:tags']";
+var GA4_PARTNERS = ['462'];
+
+var AuTracker = /*#__PURE__*/function () {
+  function AuTracker(params) {
+    var _this = this;
+
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, AuTracker);
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "setupGA", function () {
+      if (!W.ga) {
+        (function (i, s, o, g, r, a, m) {
+          i['GoogleAnalyticsObject'] = r;
+          i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }, i[r].l = 1 * new Date();
+          a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+        })(W, D, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+      }
+      /* eslint-disable no-undef */
+
+
+      ga('create', "UA-87198801-1", 'auto', "auTaggerStage"); // Normal ecommerce
+
+      ga("".concat("auTaggerStage", ".require"), 'ecommerce'); // Enhanced Ecommerce
+
+      ga("".concat("auTaggerStage", ".require"), 'ec');
+      ga("".concat("auTaggerStage", ".set"), 'anonymizeIp', true);
+      ga("".concat("auTaggerStage", ".set"), 'dimension1', _this.auvars.a);
+      ga("".concat("auTaggerStage", ".set"), 'dimension2', 'none');
+      ga("".concat("auTaggerStage", ".set"), 'dimension3', _this.auvars.p);
+      ga("".concat("auTaggerStage", ".set"), 'dimension4', _this.u.hostname);
+      ga("".concat("auTaggerStage", ".set"), 'dimension5', _this.u.pathname);
+      ga("".concat("auTaggerStage", ".set"), 'dimension6', 'Passive Tagger');
+      ga("".concat("auTaggerStage", ".set"), 'dimension7', _this.auvars.t);
+
+      if (_this.randNum >= 0.9 || ['158'].includes(_this.auvars.p.toString()) && _this.randNum >= 0.7 || ['220'].includes(_this.auvars.p.toString())) {
+        ga("".concat("auTaggerStage", ".send"), 'pageview');
+      }
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "setupGA4", function () {
+      if (!GA4_PARTNERS.includes(_this.auvars.p.toString())) return;
+      var scriptElement = document.createElement('script');
+      scriptElement.src = "https://www.googletagmanager.com/gtag/js?id=".concat("G-RH8QDSHETV");
+      document.head.appendChild(scriptElement);
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+      gtag('config', "G-RH8QDSHETV");
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "ListenerIterator", function (selector, method) {
+      Array.prototype.forEach.call(_this.d.querySelectorAll(selector), function (input) {
+        _this.ListenerAttacher({
+          input: input,
+          method: method
+        });
+      });
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "ListenerAttacher", function (v) {
+      var input = v.input,
+          method = v.method;
+
+      if (input != null) {
+        if (input.addEventListener) {
+          input.addEventListener('mousedown', method);
+        } else if (input.attachEvent) {
+          // IE
+          input.attachEvent('mousedown', method);
+        }
+      }
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "GlobalListenerHandler", function (e) {
+      _this.GlobalHandlers[e.type].forEach(function (f) {
+        if (e.target.matches(f.selector)) {
+          f.method(e);
+        } else {
+          var el = e.target;
+          var match = false;
+
+          while (el.parentElement && !match) {
+            el = el.parentElement;
+            match = el.matches(f.selector);
+
+            if (match) {
+              f.method(_objectSpread(_objectSpread({}, e), {}, {
+                target: el
+              }));
+            }
+          }
+        }
+      });
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "GlobalListenerAttacher", function (events, selector, method) {
+      if (typeof events === 'string') {
+        events = [events];
+      }
+
+      events.forEach(function (event) {
+        _this.GlobalHandlers[event] = _this.GlobalHandlers[event] || [];
+
+        _this.GlobalHandlers[event].push({
+          selector: selector,
+          method: method
+        });
+
+        if (document.addEventListener) {
+          document.removeEventListener(event, window.au.l);
+          document.addEventListener(event, window.au.l);
+        } else if (document.attachEvent) {
+          document.detachEvent(event, window.au.l);
+          document.attachEvent(event, window.au.l);
+        }
+      });
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "sendOffsiteClick", function (v) {
+      var url = v.url;
+      (0,_utils__WEBPACK_IMPORTED_MODULE_5__.imgSrcToElement)("".concat("https://a.stage.ad.gt", "/api/v1/off-site-click/").concat(_this.auvars.p, "?tagger_id=").concat(_this.auvars.t, "&url=").concat(url));
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "clickHandler", function (event) {
+      var url = event.currentTarget.getAttribute('href');
+
+      if (url !== null) {
+        if (_this.include_internal_links.includes(window.location.hostname)) {
+          window.au.push({
+            category: 'sendSPAPageView',
+            url: url
+          });
+        }
+      }
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "sendUserBehaviour", function (v) {
+      var action = v.action;
+      var payload = {
+        click_url: action,
+        tagger_id: _this.auvars.t,
+        audigent_id: _this.auvars.a,
+        partner_id: _this.auvars.p
+      };
+      var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
+
+      var url = "".concat("https://p.stage.ad.gt", "/api/v1/ubh");
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.send(JSON.stringify(payload));
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "behavior", function (v) {
+      var url = encodeURIComponent("".concat(_this.u.protocol, "//").concat(_this.u.hostname).concat(_this.u.pathname, "__audigent-behavior-").concat(v.action).concat(_this.u.search).concat(_this.u.hash));
+
+      _this.sendOffsiteClick({
+        url: url
+      });
+
+      _this.sendGAEvent({
+        // eslint-disable-line no-undef
+        eventCategory: 'audigent-behavior',
+        eventAction: v.action,
+        eventLabel: _this.auvars.t
+      });
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "sendEvent", function (v) {
+      // TODO: 2022-10-19 this needs a good clean up .... :(
+      var event = v.event,
+          events = v.events,
+          type = v.type;
+      event = event || events;
+
+      if (!event) {
+        if (!type) {
+          return null;
+        }
+
+        event = _objectSpread({}, v);
+        delete event.category;
+        delete event.partnerId;
+      }
+
+      var payload = {
+        'tagger_id': _this.auvars.t,
+        'partner_id': _this.auvars.p,
+        'audigent_id': _this.auvars.a,
+        'events': Array.isArray(event) ? event : [event]
+      };
+      var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
+
+      var url = "".concat("https://p.stage.ad.gt", "/api/v1/event");
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.send(JSON.stringify(payload));
+      return '';
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "sendGAEvent", function (v) {
+      var eventCategory = v.eventCategory,
+          eventAction = v.eventAction,
+          eventLabel = v.eventLabel,
+          skipSQS = v.skipSQS;
+      ga("".concat("auTaggerStage", ".send"), {
+        // eslint-disable-line no-undef
+        hitType: 'event',
+        eventCategory: eventCategory,
+        eventAction: eventAction,
+        eventLabel: eventLabel
+      });
+
+      if (!skipSQS) {
+        window.au.push({
+          category: 'sendEvent',
+          event: {
+            type: eventCategory,
+            eventAction: eventAction,
+            eventLabel: eventLabel
+          }
+        });
+      }
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "sendConsent", function (v) {
+      var payload = {
+        audigent_id: _this.auvars.a,
+        tagger_id: _this.auvars.t,
+        partner_id: _this.auvars.p,
+        consented: v.consented,
+        consent_type: v.consentType,
+        consent_string: v.consentString
+      };
+      var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
+
+      var url = "".concat("https://p.stage.ad.gt", "/api/v1/con");
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.send(JSON.stringify(payload));
+      return '';
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "pixels", function () {
+      var src = "".concat("https://pixels.stage.ad.gt", "/api/v1/getpixels?tagger_id=").concat(_this.auvars.t, "&url=").concat(encodeURIComponent(_this.u.href), "&code='none'");
+      (0,_utils__WEBPACK_IMPORTED_MODULE_5__.scriptSrcToElement)(src, true);
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "setupConsentHandler", function () {
+      _this.consentHandler.addConsentListeners();
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "sendSPAPageView", function (v) {
+      var url = v.url;
+      if (!url) return;
+
+      if (url.startsWith('//')) {
+        url = 'http://' + url;
+      }
+
+      if (url.startsWith('/') || !url.includes('://')) {
+        url = _this.d.location.protocol + '//' + _this.d.location.host + (url.startsWith('/') ? '' : '/') + url;
+      }
+
+      try {
+        var u = new URL(url);
+
+        if (u.host === _this.d.location.host) {
+          _this.sendOffsiteClick(u.href);
+
+          ga("".concat("auTaggerStage", ".send"), 'pageview', u.pathname + u.hash);
+        }
+      } catch (err) {//return false;
+      }
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "beopEvent", function (v) {
+      var partner_id = v.partnerId || _this.auvars.p;
+
+      _this.sendEvent({
+        event: _objectSpread(_objectSpread({}, v.data || {}), {}, {
+          partner_id: partner_id,
+          type: 'beop'
+        })
+      });
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "trackEvent", function (v) {
+      return false;
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "DispatchEvent", function (v) {
+      var eventName = v.eventName;
+
+      var createEvent = function createEvent(e) {
+        if (typeof window.CustomEvent === 'function') {
+          // eslint-disable-line no-undef
+          return new CustomEvent(e); // eslint-disable-line
+        }
+
+        var p = {
+          bubbles: false,
+          cancelable: false,
+          detail: undefined // eslint-disable-line
+
+        };
+        var evt = document.createEvent('CustomEvent'); // eslint-disable-line
+
+        evt.initCustomEvent(e, p.bubbles, p.cancelable, p.detail);
+        return evt;
+      };
+
+      var event = createEvent(eventName);
+      window.dispatchEvent(event); // eslint-disable-line no-undef
+    });
+
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])(this, "optout", function () {
+      (0,_utils__WEBPACK_IMPORTED_MODULE_5__.imgSrcToElement)("".concat("https://ids.stage.ad.gt", "/api/v1/optout?au_id=").concat(_this.auvars.a));
+    });
+
+    var _ref = params || {},
+        decoratorTarget = _ref.decoratorTarget,
+        taggerStrategy = _ref.taggerStrategy,
+        taggerStrategyComponents = _ref.taggerStrategyComponents;
+
+    this.w = W;
+    this.u = W.location;
+    this.d = D;
+    this.auvars = W.auvars[W.auvars.p];
+    this.dataStore = new _data_store__WEBPACK_IMPORTED_MODULE_10__["default"](W);
+    this.customTags = [];
+    this.customAttributes = {};
+    this.userDefinedTags = [];
+    this.userDefinedAttributes = {};
+    this.GlobalHandlers = {};
+    this.randNum = Math.random();
+    this.decoratorTarget = decoratorTarget || 0.995; // tagger management
+
+    if (this.u.hostname.toLowerCase().endsWith('lnk.to')) {
+      this.taggerStrategy = 'LEGACY_WORKALIKE';
+      this.taggerStrategyComponents = 'FULL_PATH';
+    } else {
+      this.taggerStrategy = taggerStrategy || this.auvars['tgs'] || 'LEGACY';
+      this.taggerStrategyComponents = taggerStrategyComponents || this.auvars['tgsc'] || 'NONE';
+    }
+
+    this.consentHandler = new _scrapers_consentHandler__WEBPACK_IMPORTED_MODULE_9__["default"](this.auvars.p, this.dataStore);
+    this.docReady = this.docReady.bind(this);
+    this.facebook = this.facebook.bind(this);
+  } // eslint-disable-next-line class-methods-use-this
+
+
+  (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(AuTracker, [{
+    key: "valueOf",
+    value: function valueOf() {
+      return null;
+    }
+  }, {
+    key: "docReady",
+    value: function docReady() {
+      var _this2 = this;
+
+      // run the following functions on initialization
+      this.setupSessionId();
+      this.getHadron();
+      this.sendPageView();
+      this.pixels();
+      this.facebook();
+      this.setupGA();
+      this.setupGA4();
+      this.setupConsentHandler();
+      this.ListenerIterator('a', this.clickHandler);
+      this.include_internal_links = [];
+      W.addEventListener('hashchange', function () {
+        _this2.sendSPAPageView({
+          url: _this2.u.href
+        });
+
+        _this2.pixels();
+      });
+
+      if (window.Shopify) {
+        var ShopifyStoreObj = new _scrapers_shopify__WEBPACK_IMPORTED_MODULE_8__["default"]();
+        ShopifyStoreObj.initialize();
+        window.addEventListener('aupixels', function () {
+          ShopifyStoreObj.updatePixels();
+        });
+      }
+    }
+  }, {
+    key: "observeDom",
+    value: function observeDom(element, callback) {
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+        childList: true
+      };
+      var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+      if (!element || element.nodeType !== 1) return;
+
+      if (MutationObserver) {
+        var mutationObserver = new MutationObserver(callback);
+        mutationObserver.observe(element, options);
+        return mutationObserver;
+      } else if (window.addEventListener) {
+        element.addEventListener('DOMNodeInserted', callback, false);
+        element.addEventListener('DOMNodeRemoved', callback, false);
+      }
+    }
+  }, {
+    key: "facebook",
+    value: function facebook() {
+      if (this.auvars['fbq'] !== true) {
+        return false;
+      }
+
+      !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; // eslint-disable-next-line no-multi-assign
+
+        n = f.fbq = function () {
+          // eslint-disable-next-line prefer-spread
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        }; // eslint-disable-next-line no-underscore-dangle
+
+
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'); // eslint-disable-next-line no-undef
+
+      fbq('init', "2657494897801233"); // eslint-disable-next-line no-undef
+
+      fbq('trackSingle', "2657494897801233", 'PageView', {
+        partner_id: this.auvars.p,
+        tagger_id: this.auvars.t
+      });
+      return true;
+    }
+  }, {
+    key: "push",
+    value: function push(v, p, x) {
+      if (typeof v === 'string') {
+        console.warn('[Audigent] deprecated use of "push": please use .push( object )'); // always bind a call to a function to this
+
+        return (this[v] || function () {
+          return false;
+        }).call(this, x);
+      } else if (v && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(v) === 'object') {
+        if ('fn' in v) {
+          // new way
+          return (this[v['fn']] || function () {
+            return false;
+          }).call(this, v['args']);
+        } else {
+          // old way
+          return (this[v['category']] || function () {
+            return false;
+          }).call(this, v);
+        }
+      } else {
+        console.warn('[Audigent] could not execute the required command: please check your syntax');
+        return false;
+      }
+    }
+  }, {
+    key: "getHadron",
+    value: function getHadron() {
+      if ((this.w.hadron || {
+        loaded: false
+      }).loaded === true) {
+        // get HadronID
+        this.auvars.h = this.w.hadron.id;
+      } else {
+        // HadronId was not set
+        this.auvars.h = null;
+      }
+    }
+  }, {
+    key: "setupSessionId",
+    value: function setupSessionId() {
+      var sessionId = this.dataStore.get('sid');
+
+      if (sessionId == null) {
+        sessionId = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.buildSessionId)();
+      }
+
+      this.auvars.s = sessionId;
+      this.dataStore.set('sid', sessionId, 30 * _time__WEBPACK_IMPORTED_MODULE_11__.MINUTE);
+    } // override in the PartnerTracker to get full control of how the taggerId is generated
+
+  }, {
+    key: "getTaggerComponents",
+    value: function getTaggerComponents() {
+      return null;
+    }
+  }, {
+    key: "setupTaggerId",
+    value: function setupTaggerId() {
+      if (this.taggerStrategy == 'LEGACY_WORKALIKE') {
+        var hostname = this.u.hostname.toLowerCase();
+        var tags = this.getTags();
+
+        var _taggerComponents = this.getTaggerComponents();
+
+        if (!Array.isArray(_taggerComponents) || _taggerComponents.length == 0) {
+          if (this.taggerStrategyComponents == 'FULL_PATH') {
+            _taggerComponents = [hostname, this.u.pathname, this.auvars.p];
+          } else if (Array.isArray(tags) && tags.length > 0) {
+            _taggerComponents = [hostname, '[' + tags.join(',').toLowerCase() + ']', this.auvars.p];
+          } else {
+            _taggerComponents = [hostname, '/', this.auvars.p];
+          }
+        }
+
+        var taggerStr = _taggerComponents.join('');
+
+        var taggerId = (0,_md5__WEBPACK_IMPORTED_MODULE_7__.md5)(taggerStr).toLowerCase();
+        this.auvars.t = taggerId; // retrocompatibility... to be removed at some point
+
+        this.w.auvars.t = taggerId;
+        return true;
+      }
+
+      var taggerComponents = this.getTaggerComponents();
+
+      if (Array.isArray(taggerComponents) && taggerComponents.length > 0) {
+        var _taggerStr = taggerComponents.join();
+
+        var _taggerId = ('AU1T-0100-' + (0,_md5__WEBPACK_IMPORTED_MODULE_7__.md5)(_taggerStr)).toUpperCase();
+
+        this.auvars.t = _taggerId; // retrocompatibility... to be removed at some point
+
+        this.w.auvars.t = _taggerId;
+        return true;
+      }
+
+      return false;
+    } //
+    // Read descriptor kv from meta tags. Don't override unless you have a very good reason
+    //
+
+  }, {
+    key: "getMetaAttributes",
+    value: function getMetaAttributes() {
+      // meta elements
+      var metaElements = this.d.querySelectorAll('meta');
+      var attributes = {
+        'url': this.u.href,
+        'title': this.d.title
+      };
+
+      var _iterator = _createForOfIteratorHelper(metaElements),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var element = _step.value;
+          var currentProperty = element.getAttribute('property');
+
+          if (currentProperty in META_PROPERTIES) {
+            attributes[META_PROPERTIES[currentProperty]] = element.getAttribute('content');
+            continue;
+          }
+
+          var currentName = element.getAttribute('name');
+
+          if (currentName in META_NAMES) {
+            var key = META_NAMES[currentName];
+
+            if (key === 'keywords') {
+              attributes[key] = (element.getAttribute('content') || '').split(',').map(function (i) {
+                return i.trim();
+              }).filter(function (i) {
+                return i.length > 0;
+              });
+            } else {
+              attributes[key] = element.getAttribute('content');
+            }
+
+            continue;
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      return attributes;
+    }
+  }, {
+    key: "getCustomAttributes",
+    value: function getCustomAttributes() {
+      return {};
+    }
+  }, {
+    key: "getAttributes",
+    value: function getAttributes() {
+      return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, this.customAttributes), this.userDefinedAttributes), this.getCustomAttributes()), this.getMetaAttributes());
+    }
+  }, {
+    key: "clearAttributes",
+    value: function clearAttributes() {
+      this.userDefinedAttributes = {};
+    }
+  }, {
+    key: "setAttributes",
+    value: function setAttributes(v) {
+      var _ref2 = v || {},
+          attributes = _ref2.attributes;
+
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(attributes) === 'object') {
+        this.userDefinedAttributes = attributes;
+        return true;
+      }
+
+      return false;
+    }
+  }, {
+    key: "addAttributes",
+    value: function addAttributes(v) {
+      var _ref3 = v || {},
+          attributes = _ref3.attributes;
+
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(attributes) === 'object') {
+        this.userDefinedAttributes = _objectSpread(_objectSpread({}, this.userDefinedAttributes), attributes);
+        return true;
+      }
+
+      return false;
+    } //
+    // Read tags from meta. Don't override unless you have a very good reason
+    //
+    // <meta name="audigent:tags" content="tag1|tag2">
+    //
+
+  }, {
+    key: "getMetaTags",
+    value: function getMetaTags() {
+      var _this3 = this;
+
+      var audigentTags = document.head.querySelectorAll(META_AUDIGENT_TAG)[0];
+
+      if (audigentTags) {
+        return audigentTags.content.split('|').map(function (tag) {
+          return tag.trim();
+        }).filter(function (tag) {
+          return tag.length > 0;
+        }).map(function (i) {
+          return (_this3.u.hostname + ' > ' + i).toUpperCase();
+        });
+      }
+
+      return [];
+    }
+  }, {
+    key: "getCustomTags",
+    value: function getCustomTags() {
+      return [];
+    } // merge tags
+
+  }, {
+    key: "getTags",
+    value: function getTags() {
+      var allTags = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.customTags), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.userDefinedTags), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.getCustomTags()), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.getMetaTags()));
+      return allTags.filter(function (i) {
+        return typeof i === 'string' || i instanceof String;
+      }).map(function (i) {
+        return i.replace(/,/g, '');
+      }).map(function (i) {
+        return i.trim();
+      }).filter(function (i) {
+        return i.length > 0;
+      }).map(function (i) {
+        return i.toUpperCase();
+      });
+    }
+  }, {
+    key: "clearTags",
+    value: function clearTags() {
+      this.userDefinedTags = [];
+    }
+  }, {
+    key: "setTags",
+    value: function setTags(v) {
+      var _ref4 = v || {},
+          tags = _ref4.tags;
+
+      if (Array.isArray(tags)) {
+        this.userDefinedTags = tags;
+        return true;
+      }
+
+      if (typeof tags === 'string') {
+        this.userDefinedTags = [tags];
+        return true;
+      }
+
+      return false;
+    }
+  }, {
+    key: "addTags",
+    value: function addTags(v) {
+      var _ref5 = v || {},
+          tags = _ref5.tags;
+
+      if (Array.isArray(tags)) {
+        this.userDefinedTags = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(tags), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.userDefinedTags));
+        return true;
+      }
+
+      if (typeof tags === 'string') {
+        this.userDefinedTags = [tags].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.userDefinedTags));
+        return true;
+      }
+
+      return false;
+    }
+  }, {
+    key: "writeDecoratorRecord",
+    value: function writeDecoratorRecord(v) {
+      var tags = v.tags,
+          decor_dict = v.decor_dict,
+          attributes = v.attributes;
+      this.customTags = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.customTags), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(tags || []));
+      this.customAttributes = _objectSpread(_objectSpread(_objectSpread({}, this.customAttributes), decor_dict || {}), attributes || {});
+    }
+  }, {
+    key: "sendDecoratorRecord",
+    value: function sendDecoratorRecord() {
+      var doRun = this.randNum >= this.decoratorTarget;
+
+      if (!doRun) {
+        return null;
+      }
+
+      var attributes = this.getAttributes();
+      var tags = this.getTags();
+
+      var decoratorRecord = _objectSpread(_objectSpread({}, attributes), {}, {
+        // [legacy] compact tags into a single string
+        tags: tags.join(),
+        // [legacy] add tagger_id and partner_id in the tagger decorator record
+        tagger_id: this.auvars.t,
+        partner_id: this.auvars.p
+      });
+
+      var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
+
+      var url = "".concat("https://p.stage.ad.gt", "/api/v1/dec");
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.send(JSON.stringify(decoratorRecord));
+      return xhr;
+    }
+  }, {
+    key: "segCapture",
+    value: function segCapture() {
+      var _window = window,
+          au_seg = _window.au_seg;
+      var segments = (au_seg || {}).segments || [];
+
+      if (segments.length > 0 && this.randNum >= 0.9) {
+        var payload = {
+          tagger_id: this.auvars.t,
+          partner_id: this.auvars.p,
+          audigent_id: this.auvars.a,
+          segment_ids: au_seg.segments.join('|')
+        };
+        var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
+
+        var url = "".concat("https://p.stage.ad.gt", "/api/v1/segs");
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.send(JSON.stringify(payload));
+        return true;
+      }
+
+      return false;
+    }
+  }, {
+    key: "tags",
+    value: function tags(v) {
+      console.warn("[Audigent] this method is deprecated (params: " + JSON.stringify(v) + "). Use addTags/setTags/clearTags instead. Please contact your account manager for more info.");
+      var data = v.action || v.data || [];
+      var tags = data.map(function (t) {
+        return t.toUpperCase();
+      });
+      this.push({
+        category: 'addTags',
+        tags: tags
+      });
+    }
+  }, {
+    key: "conversion",
+    value: function conversion(v) {
+      console.log("[Audigent] Conversion Event - ".concat(v.action));
+    }
+  }, {
+    key: "sendPageView",
+    value: function sendPageView(v) {
+      this.setupTaggerId();
+      var attributes = this.getAttributes();
+      var tags = this.getTags();
+      var createdAt = 1 * new Date();
+      var properties = {
+        'event_timestamp': createdAt,
+        'url': this.w.location.href,
+        'referrer': this.d.referrer,
+        'partner_id': this.auvars.p,
+        'tagger_id': this.auvars.t,
+        'audigent_id': this.auvars.a,
+        'session_id': this.auvars.s,
+        'attributes': attributes,
+        'tags': tags
+      }; // Add hadron_id if populated
+
+      if (this.auvars.h) {
+        properties.hadron_id = this.auvars.h;
+      }
+
+      var propertiesExt = (v || {}).data || {};
+      var payload = {
+        'category': 'pageView',
+        'version': 'v2',
+        'created_at': createdAt,
+        'properties': _objectSpread(_objectSpread({}, properties), propertiesExt)
+      };
+      var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
+
+      var url = "".concat("https://a.stage.ad.gt", "/api/v1/collect");
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'text/plain');
+      xhr.send((0,_base64__WEBPACK_IMPORTED_MODULE_6__.b64encode)(JSON.stringify(payload)));
+      return this.sendDecoratorRecord();
+    }
+  }, {
+    key: "setupInPageTaxonomy",
+    value: function setupInPageTaxonomy(adServerCallbacks) {
+      var segmentServiceUri = new URL("".concat("https://seg.stage.ad.gt", "/api/v1/segments")); // eslint-disable-line no-undef
+
+      segmentServiceUri.searchParams.set('url', encodeURIComponent(this.u.href));
+      segmentServiceUri.searchParams.set('partner_id', this.auvars.p);
+      segmentServiceUri.searchParams.set('tagger_id', this.auvars.t);
+      segmentServiceUri.searchParams.set('au_id', this.auvars.a);
+      var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
+
+      xhr.timeout = 10000; // 10 secs
+
+      xhr.onload = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+          var segmentServiceResponse = JSON.parse(xhr.response); // default behaviour saves segments in the window context
+
+          W.au_seg = segmentServiceResponse; // trigger custom event to notify other libraries that the data is ready
+
+          var auSegEvent = new CustomEvent('auSegReady', {
+            'detail': segmentServiceResponse
+          });
+          D.dispatchEvent(auSegEvent); // call all the other adserver integrations
+
+          (adServerCallbacks || []).forEach(function (cb) {
+            return cb(W, D, segmentServiceResponse.segments);
+          });
+          W.au.push({
+            category: 'segCapture'
+          });
+        }
+      };
+
+      xhr.ontimeout = function () {
+        console.log('[Audigent] Taxonomy Service > Timeout');
+      };
+
+      xhr.onerror = function () {
+        console.log('[Audigent] Taxonomy Service > Invalid Response');
+      };
+
+      xhr.open('GET', segmentServiceUri, true);
+      xhr.send();
+    } //
+    // User properties
+    //
+
+  }, {
+    key: "addUserIdentity",
+    value: function addUserIdentity(args) {
+      if (!args) return false;
+      var identityType = args.identityType,
+          identityValue = args.identityValue;
+
+      if (identityType === undefined || identityValue === undefined) {
+        return false;
+      }
+
+      if (identityType === 'email') {
+        var encodedEmail = window.btoa(identityValue);
+        return this.sendEvent({
+          event: {
+            type: 'e',
+            value: encodedEmail
+          }
+        });
+      } else {
+        return this.sendEvent({
+          event: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_4__["default"])({
+            type: 'u'
+          }, identityType, identityValue)
+        });
+      }
+    }
+  }, {
+    key: "addUserProperty",
+    value: function addUserProperty(args) {
+      if (!args) return false;
+      var propertyName = args.propertyName,
+          propertyValue = args.propertyValue;
+
+      if (propertyName === undefined || propertyValue === undefined) {
+        return false;
+      }
+
+      if (propertyName === 'email') {
+        return this.addUserIdentity({
+          identityType: 'email',
+          identityValue: propertyValue
+        });
+      } else {
+        return this.sendEvent({
+          event: {
+            type: 'user.property',
+            propertyName: propertyName,
+            propertyValue: propertyValue
+          }
+        });
+      }
+    }
+  }]);
+
+  return AuTracker;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AuTracker);
+
+/***/ }),
+/* 20 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _defineProperty)
+/* harmony export */ });
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+/***/ }),
+/* 21 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "buildSessionId": () => (/* binding */ buildSessionId),
+/* harmony export */   "cnHosts": () => (/* binding */ cnHosts),
+/* harmony export */   "elementHandlers": () => (/* binding */ elementHandlers),
+/* harmony export */   "extractDomain": () => (/* binding */ extractDomain),
+/* harmony export */   "getCookie": () => (/* binding */ getCookie),
+/* harmony export */   "getParameterByName": () => (/* binding */ getParameterByName),
+/* harmony export */   "getParentUrl": () => (/* binding */ getParentUrl),
+/* harmony export */   "hasLastSeenCookieExpired": () => (/* binding */ hasLastSeenCookieExpired),
+/* harmony export */   "iframeSrcToElement": () => (/* binding */ iframeSrcToElement),
+/* harmony export */   "imgSrcToElement": () => (/* binding */ imgSrcToElement),
+/* harmony export */   "randomString": () => (/* binding */ randomString),
+/* harmony export */   "scriptSrcToElement": () => (/* binding */ scriptSrcToElement),
+/* harmony export */   "setCookie": () => (/* binding */ setCookie),
+/* harmony export */   "xhrGet": () => (/* binding */ xhrGet)
+/* harmony export */ });
+var d = document; // eslint-disable-line no-undef
+
+var p = parent; // eslint-disable-line no-undef, no-restricted-globals
+
+var w = window; // eslint-disable-line no-undef
+
+var getParentUrl = function getParentUrl() {
+  // const parentUrl = w.location !== w.parent.location ? d.referrer : d.location.href;
+  var parser = d.createElement('a');
+  parser.href = w.location;
+  return parser;
+};
+var imgSrcToElement = function imgSrcToElement(src, onload) {
+  var img = d.createElement('img');
+  img.height = 1;
+  img.width = 1;
+  img.style.display = 'none';
+  img.src = src;
+  img.onload = onload;
+  img.alt = '';
+  return d.body.appendChild(img);
+};
+var iframeSrcToElement = function iframeSrcToElement(src) {
+  var ifrm = d.createElement('iframe');
+  ifrm.width = 1;
+  ifrm.height = 1;
+  ifrm.style.display = 'none';
+  ifrm.src = src;
+  return d.body.appendChild(ifrm);
+};
+var scriptSrcToElement = function scriptSrcToElement(src) {
+  var async = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  var script = d.createElement('script');
+  script.type = 'text/javascript';
+  script.src = src;
+  script.async = async;
+  return d.body.appendChild(script);
+};
+var elementHandlers = {
+  'img': imgSrcToElement,
+  'script': scriptSrcToElement,
+  'iframe': iframeSrcToElement
+};
+var cnHosts = ['allure.com', 'newyorker.com', 'wired.com', 'vanityfair.com', 'epicurious.com', 'glamour.com', 'pitchfork.com', 'gq.com', 'bonappetit.com', 'self.com', 'golfdigest.com', 'architecturaldigest.com', 'cntraveler.com', 'teenvogue.com', 'brides.com', 'wmagazine.com', 'wmagazinetoday.info', 'them.us', 'vogue.com', 'arstechnica.com', 'thescene.com'];
+var getParameterByName = function getParameterByName(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
+var xhrGet = function xhrGet(url, responseHandler) {
+  var fallback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+  var timeout = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1000;
+
+  function errorCallback(name, message, error, request) {
+    fallback(error);
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('get', url, true);
+  xhr.timeout = timeout;
+  xhr.withCredentials = true;
+
+  xhr.ontimeout = function () {
+    var error = new Error("Timeout after ".concat(timeout, ", url : ").concat(url));
+    errorCallback('AjaxTimeout', "Timeout after ".concat(timeout), error, xhr);
+  };
+
+  xhr.setRequestHeader('Content-type', 'application/json');
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      var status = xhr.status;
+
+      if (status >= 200 && status < 300 || status === 304) {
+        responseHandler(xhr.responseText, xhr);
+      } else {
+        var error = new Error("Incorrect status received : ".concat(status));
+        errorCallback('XHRError', "Error during XHR call: ".concat(status, ", url: ").concat(url), error, xhr);
+      }
+    }
+  };
+
+  xhr.send();
+};
+var getCookie = function getCookie(key) {
+  var fkey = '_au_' + key + '=';
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+
+    if (c.indexOf(fkey) == 0) {
+      return c.substring(fkey.length, c.length);
+    }
+  }
+
+  return null;
+};
+var hasLastSeenCookieExpired = function hasLastSeenCookieExpired(key, ttl, now) {
+  // eslint-disable-next-line radix
+  var lastSeenMillis = parseInt(getCookie(key)) || 0;
+  return lastSeenMillis + ttl < now;
+};
+var extractDomain = function extractDomain(hostname) {
+  // naive way to extract domain name (example.com) from full hostname (my.sub.example.com)
+  var SIMPLE_DOMAIN_MATCH_REGEX = /[a-z0-9][a-z0-9-]*\.[a-z]+$/i; // this next one attempts to account for some ccSLDs, e.g. extracting oxford.ac.uk from www.oxford.ac.uk
+
+  var DOMAIN_MATCH_REGEX = /[a-z0-9][a-z0-9-]+\.[a-z.]{2,6}$/i;
+  var domain_regex = DOMAIN_MATCH_REGEX;
+  var parts = hostname.split('.');
+  var tld = parts[parts.length - 1];
+
+  if (tld.length > 4 || tld === 'com' || tld === 'org' || tld === 'net') {
+    domain_regex = SIMPLE_DOMAIN_MATCH_REGEX;
+  }
+
+  var matches = hostname.match(domain_regex);
+  return matches ? matches[0] : hostname;
+};
+var setCookie = function setCookie(key, value) {
+  document.cookie = '_au_' + key + '=' + value + '; domain=' + extractDomain(document.location.hostname) + '; path=/; max-age=31536000';
+};
+function randomString(length) {
+  var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ'.split('');
+
+  if (!length) {
+    length = Math.floor(Math.random() * chars.length);
+  }
+
+  var str = '';
+
+  for (var i = 0; i < length; i++) {
+    str += chars[Math.floor(Math.random() * chars.length)];
+  }
+
+  return str;
+}
+function buildSessionId() {
+  var secondsSinceEpoch = Math.round(Date.now() / 1000);
+  return "AU1S-0100-" + String(secondsSinceEpoch).padStart(12, '0') + "-" + randomString(8) + "-" + randomString(4);
+}
+
+/***/ }),
+/* 22 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "b64decode": () => (/* binding */ b64decode),
+/* harmony export */   "b64encode": () => (/* binding */ b64encode)
+/* harmony export */ });
+/**
+*
+*  Base64 encode / decode
+*  http://www.webtoolkit.info/
+*
+**/
+// private property
+var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="; // private method for UTF-8 encoding
+
+function _utf8_encode(string) {
+  string = string.replace(/\r\n/g, "\n");
+  var utftext = "";
+
+  for (var n = 0; n < string.length; n++) {
+    var c = string.charCodeAt(n);
+
+    if (c < 128) {
+      utftext += String.fromCharCode(c);
+    } else if (c > 127 && c < 2048) {
+      utftext += String.fromCharCode(c >> 6 | 192);
+      utftext += String.fromCharCode(c & 63 | 128);
+    } else {
+      utftext += String.fromCharCode(c >> 12 | 224);
+      utftext += String.fromCharCode(c >> 6 & 63 | 128);
+      utftext += String.fromCharCode(c & 63 | 128);
+    }
+  }
+
+  return utftext;
+}
+
+; // private method for UTF-8 decoding
+
+function _utf8_decode(utftext) {
+  var string = "";
+  var i = 0;
+  var c = c1 = c2 = 0;
+
+  while (i < utftext.length) {
+    c = utftext.charCodeAt(i);
+
+    if (c < 128) {
+      string += String.fromCharCode(c);
+      i++;
+    } else if (c > 191 && c < 224) {
+      c2 = utftext.charCodeAt(i + 1);
+      string += String.fromCharCode((c & 31) << 6 | c2 & 63);
+      i += 2;
+    } else {
+      c2 = utftext.charCodeAt(i + 1);
+      c3 = utftext.charCodeAt(i + 2);
+      string += String.fromCharCode((c & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
+      i += 3;
+    }
+  }
+
+  return string;
+}
+
+; // public method for encoding
+
+function b64encode(input) {
+  var output = "";
+  var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+  var i = 0;
+  input = _utf8_encode(input);
+
+  while (i < input.length) {
+    chr1 = input.charCodeAt(i++);
+    chr2 = input.charCodeAt(i++);
+    chr3 = input.charCodeAt(i++);
+    enc1 = chr1 >> 2;
+    enc2 = (chr1 & 3) << 4 | chr2 >> 4;
+    enc3 = (chr2 & 15) << 2 | chr3 >> 6;
+    enc4 = chr3 & 63;
+
+    if (isNaN(chr2)) {
+      enc3 = enc4 = 64;
+    } else if (isNaN(chr3)) {
+      enc4 = 64;
+    }
+
+    output = output + _keyStr.charAt(enc1) + _keyStr.charAt(enc2) + _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
+  }
+
+  return output;
+}
+; // public method for decoding
+
+function b64decode(input) {
+  var output = "";
+  var chr1, chr2, chr3;
+  var enc1, enc2, enc3, enc4;
+  var i = 0;
+  input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+  while (i < input.length) {
+    enc1 = _keyStr.indexOf(input.charAt(i++));
+    enc2 = _keyStr.indexOf(input.charAt(i++));
+    enc3 = _keyStr.indexOf(input.charAt(i++));
+    enc4 = _keyStr.indexOf(input.charAt(i++));
+    chr1 = enc1 << 2 | enc2 >> 4;
+    chr2 = (enc2 & 15) << 4 | enc3 >> 2;
+    chr3 = (enc3 & 3) << 6 | enc4;
+    output = output + String.fromCharCode(chr1);
+
+    if (enc3 != 64) {
+      output = output + String.fromCharCode(chr2);
+    }
+
+    if (enc4 != 64) {
+      output = output + String.fromCharCode(chr3);
+    }
+  }
+
+  output = _utf8_decode(output);
+  return output;
+}
+;
+
+/***/ }),
+/* 23 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "md5": () => (/* binding */ md5)
+/* harmony export */ });
+// SOURCE: https://stackoverflow.com/questions/1655769/fastest-md5-implementation-in-javascript
+function md5(e) {
+  function h(a, b) {
+    var c, d, e, f, g;
+    e = a & 2147483648;
+    f = b & 2147483648;
+    c = a & 1073741824;
+    d = b & 1073741824;
+    g = (a & 1073741823) + (b & 1073741823);
+    return c & d ? g ^ 2147483648 ^ e ^ f : c | d ? g & 1073741824 ? g ^ 3221225472 ^ e ^ f : g ^ 1073741824 ^ e ^ f : g ^ e ^ f;
+  }
+
+  function k(a, b, c, d, e, f, g) {
+    a = h(a, h(h(b & c | ~b & d, e), g));
+    return h(a << f | a >>> 32 - f, b);
+  }
+
+  function l(a, b, c, d, e, f, g) {
+    a = h(a, h(h(b & d | c & ~d, e), g));
+    return h(a << f | a >>> 32 - f, b);
+  }
+
+  function m(a, b, d, c, e, f, g) {
+    a = h(a, h(h(b ^ d ^ c, e), g));
+    return h(a << f | a >>> 32 - f, b);
+  }
+
+  function n(a, b, d, c, e, f, g) {
+    a = h(a, h(h(d ^ (b | ~c), e), g));
+    return h(a << f | a >>> 32 - f, b);
+  }
+
+  function p(a) {
+    var b = "",
+        d = "",
+        c;
+
+    for (c = 0; 3 >= c; c++) {
+      d = a >>> 8 * c & 255, d = "0" + d.toString(16), b += d.substr(d.length - 2, 2);
+    }
+
+    return b;
+  }
+
+  var f = [],
+      q,
+      r,
+      s,
+      t,
+      a,
+      b,
+      c,
+      d;
+
+  e = function (a) {
+    a = a.replace(/\r\n/g, "\n");
+
+    for (var b = "", d = 0; d < a.length; d++) {
+      var c = a.charCodeAt(d);
+      128 > c ? b += String.fromCharCode(c) : (127 < c && 2048 > c ? b += String.fromCharCode(c >> 6 | 192) : (b += String.fromCharCode(c >> 12 | 224), b += String.fromCharCode(c >> 6 & 63 | 128)), b += String.fromCharCode(c & 63 | 128));
+    }
+
+    return b;
+  }(e);
+
+  f = function (b) {
+    var a,
+        c = b.length;
+    a = c + 8;
+
+    for (var d = 16 * ((a - a % 64) / 64 + 1), e = Array(d - 1), f = 0, g = 0; g < c;) {
+      a = (g - g % 4) / 4, f = g % 4 * 8, e[a] |= b.charCodeAt(g) << f, g++;
+    }
+
+    a = (g - g % 4) / 4;
+    e[a] |= 128 << g % 4 * 8;
+    e[d - 2] = c << 3;
+    e[d - 1] = c >>> 29;
+    return e;
+  }(e);
+
+  a = 1732584193;
+  b = 4023233417;
+  c = 2562383102;
+  d = 271733878;
+
+  for (e = 0; e < f.length; e += 16) {
+    q = a, r = b, s = c, t = d, a = k(a, b, c, d, f[e + 0], 7, 3614090360), d = k(d, a, b, c, f[e + 1], 12, 3905402710), c = k(c, d, a, b, f[e + 2], 17, 606105819), b = k(b, c, d, a, f[e + 3], 22, 3250441966), a = k(a, b, c, d, f[e + 4], 7, 4118548399), d = k(d, a, b, c, f[e + 5], 12, 1200080426), c = k(c, d, a, b, f[e + 6], 17, 2821735955), b = k(b, c, d, a, f[e + 7], 22, 4249261313), a = k(a, b, c, d, f[e + 8], 7, 1770035416), d = k(d, a, b, c, f[e + 9], 12, 2336552879), c = k(c, d, a, b, f[e + 10], 17, 4294925233), b = k(b, c, d, a, f[e + 11], 22, 2304563134), a = k(a, b, c, d, f[e + 12], 7, 1804603682), d = k(d, a, b, c, f[e + 13], 12, 4254626195), c = k(c, d, a, b, f[e + 14], 17, 2792965006), b = k(b, c, d, a, f[e + 15], 22, 1236535329), a = l(a, b, c, d, f[e + 1], 5, 4129170786), d = l(d, a, b, c, f[e + 6], 9, 3225465664), c = l(c, d, a, b, f[e + 11], 14, 643717713), b = l(b, c, d, a, f[e + 0], 20, 3921069994), a = l(a, b, c, d, f[e + 5], 5, 3593408605), d = l(d, a, b, c, f[e + 10], 9, 38016083), c = l(c, d, a, b, f[e + 15], 14, 3634488961), b = l(b, c, d, a, f[e + 4], 20, 3889429448), a = l(a, b, c, d, f[e + 9], 5, 568446438), d = l(d, a, b, c, f[e + 14], 9, 3275163606), c = l(c, d, a, b, f[e + 3], 14, 4107603335), b = l(b, c, d, a, f[e + 8], 20, 1163531501), a = l(a, b, c, d, f[e + 13], 5, 2850285829), d = l(d, a, b, c, f[e + 2], 9, 4243563512), c = l(c, d, a, b, f[e + 7], 14, 1735328473), b = l(b, c, d, a, f[e + 12], 20, 2368359562), a = m(a, b, c, d, f[e + 5], 4, 4294588738), d = m(d, a, b, c, f[e + 8], 11, 2272392833), c = m(c, d, a, b, f[e + 11], 16, 1839030562), b = m(b, c, d, a, f[e + 14], 23, 4259657740), a = m(a, b, c, d, f[e + 1], 4, 2763975236), d = m(d, a, b, c, f[e + 4], 11, 1272893353), c = m(c, d, a, b, f[e + 7], 16, 4139469664), b = m(b, c, d, a, f[e + 10], 23, 3200236656), a = m(a, b, c, d, f[e + 13], 4, 681279174), d = m(d, a, b, c, f[e + 0], 11, 3936430074), c = m(c, d, a, b, f[e + 3], 16, 3572445317), b = m(b, c, d, a, f[e + 6], 23, 76029189), a = m(a, b, c, d, f[e + 9], 4, 3654602809), d = m(d, a, b, c, f[e + 12], 11, 3873151461), c = m(c, d, a, b, f[e + 15], 16, 530742520), b = m(b, c, d, a, f[e + 2], 23, 3299628645), a = n(a, b, c, d, f[e + 0], 6, 4096336452), d = n(d, a, b, c, f[e + 7], 10, 1126891415), c = n(c, d, a, b, f[e + 14], 15, 2878612391), b = n(b, c, d, a, f[e + 5], 21, 4237533241), a = n(a, b, c, d, f[e + 12], 6, 1700485571), d = n(d, a, b, c, f[e + 3], 10, 2399980690), c = n(c, d, a, b, f[e + 10], 15, 4293915773), b = n(b, c, d, a, f[e + 1], 21, 2240044497), a = n(a, b, c, d, f[e + 8], 6, 1873313359), d = n(d, a, b, c, f[e + 15], 10, 4264355552), c = n(c, d, a, b, f[e + 6], 15, 2734768916), b = n(b, c, d, a, f[e + 13], 21, 1309151649), a = n(a, b, c, d, f[e + 4], 6, 4149444226), d = n(d, a, b, c, f[e + 11], 10, 3174756917), c = n(c, d, a, b, f[e + 2], 15, 718787259), b = n(b, c, d, a, f[e + 9], 21, 3951481745), a = h(a, q), b = h(b, r), c = h(c, s), d = h(d, t);
+  }
+
+  return (p(a) + p(b) + p(c) + p(d)).toLowerCase();
+}
+;
+
+/***/ }),
+/* 24 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(15);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(14);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(25);
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+var ShopifyStore = /*#__PURE__*/function (_Store) {
+  (0,_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__["default"])(ShopifyStore, _Store);
+
+  var _super = _createSuper(ShopifyStore);
+
+  function ShopifyStore() {
+    var _this;
+
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ShopifyStore);
+
+    _this = _super.call(this);
+    _this.brand = window.Shopify.shop; // eslint-disable-line no-undef
+
+    return _this;
+  }
+
+  (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(ShopifyStore, [{
+    key: "captureProduct",
+    value: function captureProduct(variant) {
+      try {
+        var selectedVariant = window.ShopifyAnalytics.meta.selectedVariantId; // eslint-disable-line no-undef, max-len
+
+        var product = window.ShopifyAnalytics.meta.product.variants[0]; // eslint-disable-line no-undef, max-len
+
+        if (variant) {
+          product = window.ShopifyAnalytics.meta.product.variants.find(function (i) {
+            return i.public_title === variant;
+          }); // eslint-disable-line no-undef, max-len
+        } else if (selectedVariant) {
+          product = window.ShopifyAnalytics.meta.product.variants.find(function (i) {
+            return i.id.toString() === selectedVariant.toString();
+          }); // eslint-disable-line no-undef, max-len
+        }
+
+        if (!product) {
+          product = window.ShopifyAnalytics.meta.product.variants[0];
+          product.id = window.ShopifyAnalytics.meta.product.id;
+        }
+
+        return {
+          id: "".concat(product.id, "-").concat(_store__WEBPACK_IMPORTED_MODULE_5__.TAGGER_ID),
+          name: product.name,
+          price: parseInt(product.price, 10) / 100,
+          brand: this.brand
+        };
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    }
+  }, {
+    key: "sendProductEvents",
+    value: function sendProductEvents() {
+      var _this2 = this;
+
+      var product = this.captureProduct();
+
+      if (product) {
+        this.sendViewProductEventToGA(product);
+        this.appendPageLoadPixelCheck('view');
+        var addToCartBtn = document.querySelector('button[name="add"]') // eslint-disable-line no-undef
+        || document.querySelector('form#add-item-form button') || document.querySelector('button.shopify_add_to_cart') || document.querySelector('input[name="add"]') || document.querySelector('.ProductForm__AddToCart') || document.querySelector('#AddToCart') || document.querySelector('.product-add input[type="submit"]'); // eslint-disable-line no-undef
+
+        if (addToCartBtn) {
+          window.au.push({
+            category: 'ListenerAttacher',
+            input: addToCartBtn,
+            method: function method() {
+              _this2.sendAddProductEventToGA(product);
+
+              window.au.push({
+                category: 'behavior',
+                action: 'purchase-intent'
+              }); // eslint-disable-line no-undef
+
+              var payload = {
+                event: 'addToCart',
+                data: product
+              };
+
+              _this2.profilerServiceRequest(payload);
+            }
+          });
+        }
+      }
+    }
+  }, {
+    key: "captureCart",
+    value: function captureCart() {
+      try {
+        var productDiv = document.querySelector('#order-summary'); // eslint-disable-line no-undef
+
+        var cart = productDiv.querySelectorAll('tr.product');
+        var products = [];
+
+        for (var x = 0; x < cart.length; x++) {
+          var item = cart[x];
+          var productId = item.dataset.productId;
+          var productName = item.querySelector('.product__description__name').textContent;
+          var price = parseFloat(item.querySelector('.product__price').textContent.replace(/[^0-9.]/g, ''));
+          var quantity = parseInt(item.querySelector('.product__quantity').textContent.replace(/\s+/g, ''), 10);
+          var product = {
+            id: "".concat(productId, "-").concat(_store__WEBPACK_IMPORTED_MODULE_5__.TAGGER_ID),
+            name: productName,
+            brand: this.brand,
+            price: price,
+            quantity: quantity
+          };
+          products.push(product);
+        }
+
+        return products;
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    }
+  }, {
+    key: "calculateRevenue",
+    value: function calculateRevenue(products) {
+      // eslint-disable-line class-methods-use-this
+      var revenue = 0.0;
+
+      for (var x = 0; x < products.length; x++) {
+        revenue += parseFloat(products[x].price);
+      }
+
+      return revenue;
+    }
+  }, {
+    key: "captureTransaction",
+    value: function captureTransaction() {
+      try {
+        var data = window.Shopify.checkout; // eslint-disable-line no-undef
+
+        var affiliation = window.Shopify.shop; // eslint-disable-line no-undef
+
+        var transactionId = data.order_id;
+        var revenue = parseFloat(data.subtotal_price);
+        var tax = 0.00;
+
+        try {
+          tax = parseFloat(data.total_tax);
+        } catch (e2) {
+          console.error(e2);
+        }
+
+        var shipping = 0.00;
+
+        if (data.shipping_rate) {
+          try {
+            shipping = parseFloat(data.shipping_rate);
+          } catch (e1) {
+            try {
+              shipping = parseFloat(data.shipping_rate.price);
+            } catch (e) {
+              console.error(e);
+            }
+          }
+        }
+
+        var items = this.formatProductsInTransaction(data.line_items);
+        return {
+          id: "".concat(transactionId, "-").concat(_store__WEBPACK_IMPORTED_MODULE_5__.TAGGER_ID),
+          affiliation: affiliation,
+          revenue: revenue,
+          tax: tax,
+          shipping: shipping,
+          items: items
+        };
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    }
+  }, {
+    key: "formatProductsInTransaction",
+    value: function formatProductsInTransaction(items) {
+      var products = items; // eslint-disable-line no-undef
+
+      var formattedProducts = [];
+
+      for (var i = 0; i < products.length; i++) {
+        var item = products[i];
+        var product = {
+          id: item.product_id,
+          name: item.title,
+          brand: this.brand,
+          price: parseFloat(item.price),
+          quantity: item.quantity
+        };
+        formattedProducts.push(product);
+      }
+
+      return formattedProducts;
+    } // One method to rule them all
+    // The idea here is that we can simply call this scrape method to trigger all events
+    // based upon what page the user is on
+
+  }, {
+    key: "initialize",
+    value: function initialize() {
+      var _this3 = this;
+
+      var pages = {
+        product: window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.product,
+        // eslint-disable-line no-undef, max-len
+        checkout: window.Shopify.Checkout && window.Shopify.Checkout.page && window.Shopify.Checkout.page !== 'thank_you',
+        // eslint-disable-line no-undef
+        confirmation: window.Shopify.checkout // eslint-disable-line no-undef
+
+      }; // Quick Add Buttons
+
+      var quickAddButtons = document.querySelectorAll('div.quickadd'); // eslint-disable-line no-undef
+
+      if (quickAddButtons.length > 0) {
+        var _loop = function _loop(x) {
+          var item = quickAddButtons[x];
+          var id = item.querySelector('button').dataset.cartAdd;
+          var name = item.querySelector('[class$="item__title"]').textContent;
+
+          if (item.querySelector('.js-option-value')) {
+            var optArray = item.querySelector('.js-option-value').textContent.split(': ');
+            name += optArray[optArray.length - 1];
+          }
+
+          var price = parseFloat(item.querySelector('.product-price__price').textContent.replace(/[^0-9.]/g, ''));
+          var product = {
+            id: id,
+            name: name,
+            price: price,
+            brand: _this3.brand
+          };
+          window.au.push({
+            category: 'ListenerAttacher',
+            input: item,
+            method: function method() {
+              // eslint-disable-line no-loop-func
+              _this3.sendAddProductEventToGA(product);
+
+              var payload = {
+                event: 'addToCart',
+                data: product
+              };
+              window.au.push({
+                category: 'behavior',
+                action: 'purchase-intent'
+              }); // eslint-disable-line no-undef
+
+              _this3.profilerServiceRequest(payload);
+            }
+          });
+        };
+
+        for (var x = 0; x < quickAddButtons.length; x++) {
+          _loop(x);
+        }
+      } // Product Page
+
+
+      if (pages.product) {
+        this.sendProductEvents(); // Variant Buttons
+
+        var variantButtons = document.querySelectorAll('.swatch-element'); // eslint-disable-line no-undef
+
+        if (variantButtons.length > 0) {
+          window.addEventListener('ProductMetaUpdated', function () {
+            // eslint-disable-line no-undef
+            _this3.sendProductEvents();
+          });
+
+          for (var _x = 0; _x < variantButtons.length; _x++) {
+            var item = variantButtons[_x];
+            window.au.push({
+              category: 'ListenerAttacher',
+              input: item,
+              method: function method() {
+                window.Adgt.SetVarInterval(window.ShopifyAnalytics.meta, 'selectedVariantId');
+              }
+            });
+          }
+        }
+      } // Checkout Page
+
+
+      if (pages.checkout) {
+        var cart = this.captureCart();
+
+        if (cart) {
+          window.au.push({
+            category: 'behavior',
+            action: 'purchase-intent'
+          }); // eslint-disable-line no-undef
+
+          this.appendPageLoadPixelCheck('checkout');
+          this.sendAllProductsInCartToGA(cart, function () {
+            return _this3.sendCheckoutEventToGA();
+          });
+        }
+      } // Purchase Confirmation Page
+
+
+      if (pages.confirmation && window.location.pathname.indexOf('thank_you') !== -1) {
+        // eslint-disable-line no-undef
+        var transaction = this.captureTransaction();
+
+        if (transaction) {
+          var products = transaction.items;
+          window.au.push({
+            category: 'behavior',
+            action: 'purchase-complete'
+          }); // eslint-disable-line no-undef
+
+          this.appendPageLoadPixelCheck('transaction');
+          this.sendAllProductsInTransactionToGA(products, function () {
+            return _this3.sendTransactionEventToGA(transaction);
+          });
+        } else {
+          this.transaction = {
+            id: "null-".concat(_store__WEBPACK_IMPORTED_MODULE_5__.TAGGER_ID),
+            affiliation: this.brand,
+            revenue: 0,
+            tax: 0,
+            shipping: 0,
+            items: []
+          };
+          this.appendPageLoadPixelCheck('transaction');
+        }
+      }
+    }
+  }]);
+
+  return ShopifyStore;
+}(_store__WEBPACK_IMPORTED_MODULE_5__["default"]);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ShopifyStore);
+
+/***/ }),
+/* 25 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AU_GA_NAMESPACE": () => (/* binding */ AU_GA_NAMESPACE),
+/* harmony export */   "PARTNER_ID": () => (/* binding */ PARTNER_ID),
+/* harmony export */   "TAGGER_ID": () => (/* binding */ TAGGER_ID),
+/* harmony export */   "default": () => (/* binding */ Store)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var _pixels__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
+
+
+
+var AU_GA_NAMESPACE = "auTaggerStage";
+var TAGGER_ID = window.auvars[window.auvars.p].t;
+var PARTNER_ID = window.auvars[window.auvars.p].p;
+
+var Store = /*#__PURE__*/function () {
+  function Store() {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, Store);
+
+    if (window.aupixels) {
+      // eslint-disable-line no-undef
+      this.pixels = window.aupixels.ec || {}; // eslint-disable-line no-undef
+    } else {
+      this.pixels = {};
+    }
+
+    this.ECPixels = new _pixels__WEBPACK_IMPORTED_MODULE_2__["default"](this.pixels);
+    this.pageLoadRun = [];
+
+    if (!window.Adgt) {
+      // eslint-disable-line no-undef
+      window.Adgt = {}; // eslint-disable-line no-undef
+    }
+
+    window.Adgt.VarWatch = function (obj, prop, handler) {
+      // eslint-disable-line no-undef
+      var currval = obj[prop];
+
+      function callback() {
+        if (obj[prop] != currval) {
+          var temp = currval;
+          currval = obj[prop];
+          handler(temp, currval);
+        }
+      }
+
+      return callback;
+    };
+
+    window.Adgt.VarHandler = function (oldval, newval) {
+      // eslint-disable-line no-undef, no-unused-vars, max-len
+      window.au.push({
+        category: 'DispatchEvent',
+        eventName: 'ProductMetaUpdated'
+      }); // eslint-disable-line no-undef
+
+      clearInterval(window.Adgt['variantInterval']); // eslint-disable-line no-undef
+    };
+
+    window.Adgt.SetVarInterval = function (obj, prop) {
+      // eslint-disable-line no-undef
+      window.Adgt.variantInterval = setInterval(window.Adgt.VarWatch(obj, prop, window.Adgt.VarHandler), 100); // eslint-disable-line no-undef, max-len
+    };
+
+    window.Adgt.Store = this; // eslint-disable-line no-undef
+  }
+
+  (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Store, [{
+    key: "pathIncludes",
+    value: function pathIncludes(s) {
+      // eslint-disable-line class-methods-use-this
+      if (window.location.pathname.indexOf(s) !== -1) {
+        // eslint-disable-line no-undef
+        return true;
+      }
+
+      return false;
+    }
+  }, {
+    key: "updatePixels",
+    value: function updatePixels() {
+      var _this = this;
+
+      this.pixels = window.aupixels.ec || {}; // eslint-disable-line no-undef
+
+      this.ECPixels = new _pixels__WEBPACK_IMPORTED_MODULE_2__["default"](this.pixels);
+      this.pageLoadRun.forEach(function (item) {
+        var params = {};
+
+        if (item === 'add' || item === 'view') {
+          params = {
+            sku: _this.product.id
+          };
+        } else if (item === 'checkout') {
+          params = {
+            qty: _this.qty,
+            revenue: _this.revenue
+          };
+        } else if (item === 'transaction') {
+          params = {
+            qty: _this.transaction.items.length || _this.qty,
+            revenue: _this.transaction.revenue || _this.revenue,
+            orderId: _this.transaction.id
+          };
+        }
+
+        _this.ECPixels.dropPixel(item, params);
+      });
+      this.pageLoadRun = [];
+    }
+  }, {
+    key: "appendPageLoadPixelCheck",
+    value: function appendPageLoadPixelCheck(pixelName) {
+      var f = this.pageLoadRun.filter(function (item) {
+        return item === pixelName;
+      });
+
+      if (!f.length) {
+        this.pageLoadRun.push(pixelName);
+      }
+    }
+  }, {
+    key: "setClassProducts",
+    value: function setClassProducts(products) {
+      this.products = products;
+      this.qty = products.length;
+      this.revenue = products.reduce(function (a, b) {
+        return a + parseFloat(b.price);
+      }, 0.00);
+    }
+  }, {
+    key: "sendAddProductEventToGA",
+    value: function sendAddProductEventToGA(product) {
+      this.product = product;
+
+      try {
+        this.sendAddProductToGA(product);
+        ga("".concat(AU_GA_NAMESPACE, ".ec:setAction"), 'add'); // eslint-disable-line no-undef
+
+        ga("".concat(AU_GA_NAMESPACE, ".send"), 'event', 'UX', 'click', 'add to cart'); // eslint-disable-line no-undef
+
+        this.ECPixels.dropPixel('add', {
+          sku: product.id,
+          revenue: product.price.toFixed(2)
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, {
+    key: "sendViewProductEventToGA",
+    value: function sendViewProductEventToGA(product) {
+      this.product = product;
+
+      try {
+        ga("".concat(AU_GA_NAMESPACE, ".ec:addImpression"), {
+          // eslint-disable-line no-undef
+          'id': product.id,
+          'name': product.name,
+          'price': product.price,
+          'brand': product.brand
+        });
+        ga("".concat(AU_GA_NAMESPACE, ".ec:setAction"), 'detail'); // eslint-disable-line no-undef
+
+        ga("".concat(AU_GA_NAMESPACE, ".send"), 'pageview'); // eslint-disable-line no-undef
+
+        this.ECPixels.dropPixel('view', {
+          sku: product.id
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, {
+    key: "sendAllProductsInCartToGA",
+    value: function sendAllProductsInCartToGA(products, callback) {
+      this.setClassProducts(products);
+
+      try {
+        for (var i = 0; i < products.length; i++) {
+          var product = products[i];
+          this.sendAddProductToGA(product);
+        }
+
+        callback();
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+  }, {
+    key: "sendCheckoutEventToGA",
+    value: function sendCheckoutEventToGA() {
+      try {
+        // Note: Will be tough to add checkout steps for shipping and billing
+        // without attaching event listeners to `mousedown`
+        // events for each corresponding wrapper div on Ed Sheeran site
+        ga("".concat(AU_GA_NAMESPACE, ".ec:setAction"), 'checkout', {
+          // eslint-disable-line no-undef
+          'step': 1 // A value of 1 indicates this action is first checkout step (payment), step 2 is billing
+
+        });
+        ga("".concat(AU_GA_NAMESPACE, ".send"), 'event', {
+          // eslint-disable-line no-undef
+          'eventCategory': 'Checkout',
+          'eventAction': 'checkout',
+          hitCallback: function hitCallback() {// do what you wish here
+          }
+        });
+        this.ECPixels.dropPixel('checkout', {
+          qty: this.qty,
+          revenue: this.revenue
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, {
+    key: "sendAllProductsInTransactionToGA",
+    value: function sendAllProductsInTransactionToGA(products, callback) {
+      // eslint-disable-line class-methods-use-this, max-len
+      this.setClassProducts(products);
+
+      try {
+        for (var i = 0; i < products.length; i++) {
+          var product = products[i];
+          this.sendAddProductToGA(product);
+        }
+
+        callback();
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+  }, {
+    key: "sendAddProductToGA",
+    value: function sendAddProductToGA(product) {
+      // eslint-disable-line class-methods-use-this
+      ga("".concat(AU_GA_NAMESPACE, ".ec:addProduct"), {
+        'id': product.id,
+        'name': product.name,
+        'brand': product.brand,
+        'price': product.price,
+        'quantity': product.quantity || 1
+      });
+    }
+  }, {
+    key: "sendTransactionEventToGA",
+    value: function sendTransactionEventToGA(transaction) {
+      this.transaction = transaction;
+
+      try {
+        ga("".concat(AU_GA_NAMESPACE, ".ec:setAction"), 'purchase', {
+          // eslint-disable-line no-undef
+          'id': transaction.id,
+          'affiliation': transaction.affiliation,
+          'revenue': transaction.revenue,
+          'tax': transaction.tax,
+          'shipping': transaction.shipping
+        });
+        ga("".concat(AU_GA_NAMESPACE, ".send"), 'pageview'); // eslint-disable-line no-undef
+
+        this.ECPixels.dropPixel('transaction', {
+          qty: (transaction.items || []).length || this.qty,
+          revenue: transaction.revenue || this.revenue,
+          orderId: transaction.id,
+          items: transaction.items || [],
+          ltv: transaction.ltv || ''
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, {
+    key: "profilerServiceRequest",
+    value: function profilerServiceRequest(payload) {
+      // eslint-disable-line class-methods-use-this
+      window.au.push({
+        category: 'sendUserBehaviour',
+        action: JSON.stringify(payload)
+      });
+    }
+  }, {
+    key: "sendErrorToSentry",
+    value: function sendErrorToSentry() {
+      // eslint-disable-line class-methods-use-this
+      return false;
+    }
+  }]);
+
+  return Store;
+}();
+
+
+
+/***/ }),
+/* 26 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Pixels)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
+
+
+
+
+var Pixels = /*#__PURE__*/function () {
+  function Pixels(pixels) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, Pixels);
+
+    this.pixels = pixels;
+    this.parameters = {
+      sku: '',
+      orderId: '',
+      qty: '',
+      revenue: '',
+      ltv: ''
+    };
+  }
+
+  (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Pixels, [{
+    key: "dropPixel",
+    value: function dropPixel(pixelKey, parameters) {
+      var pixels = this.pixels[pixelKey] || [];
+      var p = this.parameters;
+
+      if (parameters) {
+        Object.keys(parameters).forEach(function (i) {
+          p[i] = parameters[i];
+          return false;
+        });
+      }
+
+      pixels.forEach(function (pixel) {
+        var item = pixel;
+        var type = 'img';
+
+        if (typeof pixel !== 'string') {
+          item = pixel[0];
+          type = pixel[1];
+
+          if (!type) {
+            type = 'img';
+          }
+        }
+
+        item = item.replace(/\[\[SKU\]\]/g, p.sku);
+        item = item.replace(/\[\[ORDERID\]\]/g, p.orderId);
+        item = item.replace(/\[\[QTY\]\]/g, p.qty);
+        item = item.replace(/\[\[REVENUE\]\]/g, p.revenue);
+        item = item.replace(/\[\[LTV\]\]/g, p.ltv);
+        item = item.replace(/\[\[ITEMS\]\]/g, (p.items || []).map(function (i) {
+          return i.id || '';
+        }).join(','));
+
+        if (type === 'img') {
+          return (0,_utils__WEBPACK_IMPORTED_MODULE_2__.imgSrcToElement)(item);
+        }
+
+        if (type === 'script') {
+          return (0,_utils__WEBPACK_IMPORTED_MODULE_2__.scriptSrcToElement)(item);
+        }
+
+        if (type === 'iframe') {
+          return (0,_utils__WEBPACK_IMPORTED_MODULE_2__.iframeSrcToElement)(item);
+        }
+
+        return false;
+      });
+    }
+  }]);
+
+  return Pixels;
+}();
+
+
+
+/***/ }),
+/* 27 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ConsentHandler)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
+
+
+
+
+var ConsentHandler = /*#__PURE__*/function () {
+  function ConsentHandler(partnerId, dataStore) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ConsentHandler);
+
+    this.partnerId = partnerId;
+    this.dataStore = dataStore;
+    this.LAST_SEEN_TCF_KEY = 'last_seen_iab_tcf';
+    this.LAST_SEEN_CUSTOM_KEY = 'last_seen_iab_custom';
+    this.COOKIE_TTL = 30 * 24 * 60 * 60 * 1000;
+  }
+
+  (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(ConsentHandler, [{
+    key: "SendToQueue",
+    value: function SendToQueue(consent) {
+      // eslint-disable-line class-methods-use-this
+      if ((0,_utils__WEBPACK_IMPORTED_MODULE_2__.hasLastSeenCookieExpired)(this.LAST_SEEN_CUSTOM_KEY, this.COOKIE_TTL, 1 * new Date())) {
+        window.au.push({
+          category: 'sendConsent',
+          consented: consent,
+          consentType: 'custom'
+        });
+        (0,_utils__WEBPACK_IMPORTED_MODULE_2__.setCookie)(this.LAST_SEEN_CUSTOM_KEY, 1 * new Date());
+      }
+
+      ga("".concat("auTaggerStage", ".send"), {
+        // eslint-disable-line no-undef
+        hitType: 'event',
+        eventCategory: consent ? 'user_consent' : 'user_nonconsent',
+        eventAction: window.location.hostname // eslint-disable-line no-undef
+
+      });
+      return true;
+    }
+  }, {
+    key: "sendRequest",
+    value: function sendRequest(tcData) {
+      var IAB_VENDOR_ID = 561;
+      (0,_utils__WEBPACK_IMPORTED_MODULE_2__.setCookie)(this.LAST_SEEN_TCF_KEY, 1 * new Date());
+      window.au.push({
+        category: 'sendConsent',
+        consented: tcData.vendor.consents[IAB_VENDOR_ID] || false,
+        consentType: 'gdpr',
+        consentString: tcData.tcString
+      });
+    }
+  }, {
+    key: "WmgConsentListeners",
+    value: function WmgConsentListeners() {
+      var _this = this;
+
+      var list = document.querySelectorAll('div.overlay, .ppclose, .ppclose2'); // eslint-disable-line no-undef
+
+      list.forEach(function (item) {
+        item.addEventListener('click', function () {
+          return _this.SendToQueue(true);
+        });
+        item.addEventListener('touchend', function () {
+          return _this.SendToQueue(true);
+        });
+      });
+    }
+  }, {
+    key: "UproxxConsentListeners",
+    value: function UproxxConsentListeners() {
+      var _this2 = this;
+
+      var consentButtons = document.querySelectorAll('.qc-cmp-button'); // eslint-disable-line no-undef
+
+      consentButtons.forEach(function (item) {
+        var consent = true;
+
+        if (item.textContent.toLowerCase().includes('do not')) {
+          consent = false;
+        }
+
+        item.addEventListener('click', function () {
+          return _this2.SendToQueue(consent);
+        });
+        item.addEventListener('touchend', function () {
+          return _this2.SendToQueue(consent);
+        });
+      });
+    }
+  }, {
+    key: "addConsentListeners",
+    value: function addConsentListeners() {
+      var _this3 = this;
+
+      if (String(this.partnerId) === '14') {
+        this.WmgConsentListeners();
+      }
+
+      if (String(this.partnerId) === '24') {
+        this.UproxxConsentListeners();
+      }
+
+      try {
+        // eslint-disable-next-line no-undef
+        __tcfapi('addEventListener', 2, function (tcData, success) {
+          if (success) {
+            if (tcData.eventStatus === 'tcloaded') {
+              if ((0,_utils__WEBPACK_IMPORTED_MODULE_2__.hasLastSeenCookieExpired)(_this3.LAST_SEEN_TCF_KEY, _this3.COOKIE_TTL, 1 * new Date())) {
+                _this3.sendRequest(tcData);
+              }
+            }
+
+            if (tcData.eventStatus === 'useractioncomplete') {
+              _this3.sendRequest(tcData);
+            }
+          }
+        });
+      } catch (e) {
+        return false;
+      }
+
+      return false;
+    }
+  }]);
+
+  return ConsentHandler;
+}();
+
+
+
+/***/ }),
+/* 28 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var _time__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(21);
+
+
+
+
+
+function hasLocalStorage(w) {
+  var mod = 'au/test';
+
+  try {
+    w.localStorage.setItem(mod, mod);
+    w.localStorage.removeItem(mod);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+var DataStore = /*#__PURE__*/function () {
+  function DataStore(w) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, DataStore);
+
+    this.w = w;
+    this.now = 1 * new Date();
+    this.useCookie = !hasLocalStorage(this.w);
+  }
+
+  (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(DataStore, [{
+    key: "getCookie",
+    value: function getCookie(key) {
+      // TODO: I'd like to move the code from "getCookie" here, and remove it from the utils 
+      return (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getCookie)(key);
+    }
+  }, {
+    key: "get",
+    value: function get(key) {
+      var forceCookie = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      if (this.useCookie || forceCookie) {
+        return this.getCookie(key);
+      } else {
+        var item = this.w.localStorage.getItem("au/" + key);
+
+        if (item) {
+          item = JSON.parse(item);
+          var expireAt = item['e'];
+
+          if (expireAt > this.now) {
+            return item['v'];
+          } else {
+            this.w.localStorage.removeItem("au/" + key);
+          }
+        }
+
+        return null;
+      }
+    }
+  }, {
+    key: "setCookie",
+    value: function setCookie(key, value) {
+      var ttl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _time__WEBPACK_IMPORTED_MODULE_2__.MINUTE;
+
+      // TODO: I'd like to move the code from "setCookie" here, and remove it from the utils 
+      // TODO: currently our utils.setCookie doesn't support ttl parameters
+      (0,_utils__WEBPACK_IMPORTED_MODULE_3__.setCookie)(key, value);
+    }
+  }, {
+    key: "set",
+    value: function set(key, value) {
+      var ttl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _time__WEBPACK_IMPORTED_MODULE_2__.MINUTE;
+      var forceCookie = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+      if (this.useCookie || forceCookie) {
+        this.setCookie(key, value, ttl);
+      } else {
+        this.w.localStorage.setItem("au/" + key, JSON.stringify({
+          "v": value,
+          "e": this.now + ttl
+        }));
+      }
+    }
+  }]);
+
+  return DataStore;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataStore);
+
+/***/ }),
+/* 29 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "DAY": () => (/* binding */ DAY),
+/* harmony export */   "HOUR": () => (/* binding */ HOUR),
+/* harmony export */   "MINUTE": () => (/* binding */ MINUTE)
+/* harmony export */ });
+var MINUTE = 60 * 1000;
+var HOUR = 60 * MINUTE;
+var DAY = 24 * HOUR;
+
+/***/ })
+/******/ 	]);
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _docReady__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var _docReady__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_docReady__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _import_import__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+
+
+
+/************************************************************************************/
+
+/******************************AUDIGENT IN PAGE API**********************************/
+
+/************************************************************************************/
+
+!function (w) {
+  // set partner ID from teplate var or webpack
+  var partnerId = w.auvars.p; // check for existing queue
+
+  var queue = w.au && Array.isArray(w.au) ? (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(w.au) : []; // ensure 'autag' is in list of vars
+
+  w.auvars.autag_objs = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])((w.auvars.autag_objs || []).filter(function (i) {
+    return i !== 'autag';
+  })), ['autag']); // set window.au function for handling in-page api requests
+
+  w.au = {
+    push: function push() {
+      for (var _len = arguments.length, v = new Array(_len), _key = 0; _key < _len; _key++) {
+        v[_key] = arguments[_key];
+      }
+
+      w.auvars.autag_objs.forEach(function (o) {
+        return Object.values(w[o] || {}).forEach(function (i) {
+          return i.push.apply(i, v);
+        });
+      });
+    },
+    l: function l(e) {
+      w.auvars.autag_objs.forEach(function (o) {
+        return Object.values(w[o] || {}).forEach(function (i) {
+          return i.GlobalListenerHandler(e);
+        });
+      });
+    },
+    init: function init() {
+      // set auvars partner history
+      w.auvars[partnerId]['hist'] = w.auvars[partnerId]['hist'] || []; // get last page
+
+      var lastPage = w.auvars[partnerId]['hist'].slice(-1)[0]; // get/set window.autag or similar object
+
+      w['autag'] = w['autag'] || {}; // if there's not already a profiler object for this partner, or if the page has changed, re-initialize
+
+      if (!w['autag'][partnerId] || lastPage !== w.location.href) {
+        w.auvars[partnerId]['hist'].push(w.location.href);
+        w['autag'][partnerId] = new _import_import__WEBPACK_IMPORTED_MODULE_2__["default"]();
+      }
+    }
+  };
+  w.au.init(); // fire queued events if any
+
+  queue.forEach(function (i) {
+    return w.au.push(i);
+  });
+}(window);
+docReady(function () {
+  return window.au.push({
+    category: 'docReady'
+  });
+});
+})();
+
+/******/ })()
+;

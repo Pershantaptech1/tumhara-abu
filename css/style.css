@@ -1,0 +1,144 @@
+*{
+    margin: 0px;
+    padding: 0px; 
+}
+.hidden{
+    display: none
+}
+.navbar{
+    display: flex;
+}
+.logo{
+    width: 20%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo img{
+    width: 33%;
+    height: 33%;
+    border: 3px solid white;
+    border-radius: 50px;
+    
+}
+
+.nav-list{
+    width: 50%;
+    /* background-color:black; */
+    display: flex;
+    align-items: center;
+
+
+}
+
+
+
+.nav-list li{
+    list-style: none;
+    padding: 23px 30px;
+
+}
+.nav-list li a:hover{
+    text-decoration:none;
+    color: blue;
+    
+
+}
+
+.nav-list li a{
+    text-decoration:none;
+    color: white; 
+
+}
+.rightnav{
+    /* background-color:blueviolet ; */
+    width: 50%;
+    text-align: right;
+
+}
+#search{
+    padding: 5px;
+    font-size: 17px;
+    border: 2px solid gray;
+    border-radius:9px;
+    margin-top: 10px
+}
+.background{
+    background: rgba(0, 0, 0, 0.7) url('../images/hello.jpg');
+    background-size: cover;
+    background-blend-mode: darken; 
+
+}
+.main{
+    background-color: none;
+    height: 200px;
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .div1{
+    background-color: none;
+    background-image: url(../picture/image3.jpg);
+    border: 1px solid black;
+    height: 200px;
+    width: 400px;
+    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
+    
+  }
+  .div2{
+    background-color: none;
+    background-image: url(../picture/image4.jpg);
+    width: 400px;
+    border: 1px solid black;
+    height: 200px;
+  
+  }
+  .div3{
+    background-color: gray;
+    background-image: url(../picture/image5.jpg);
+    border: 1px solid black;
+    height: 200px;
+    width: 400px;
+    margin-right: 10px;
+  
+    
+  }
+  .text{
+     margin-top: 40px;
+     position: fixed;
+  }
+  .text1{
+    margin-top: 40px;
+    position: fixed;
+  }
+  .text a{
+    font-size: 20px;
+    text-decoration: none;
+    font-family: Arial black;
+    color: black;
+    margin-top: 200px;
+    margin-left: 50px;
+  }
+  .text1 a{
+    font-size: 20px;
+    text-decoration: none;
+    font-family: Arial black;
+    color: black;
+    margin-top: 190px;
+    margin-left: 30px;
+  }
+  .subdiv{
+     height: 100px;
+     width: 150px;
+     /* background-color: #333; */
+     align-items: center;
+     text-align: center;
+     justify-content: center;
+     margin-top: 50px;
+     transition: 1s;
+  }
